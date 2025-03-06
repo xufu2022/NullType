@@ -1,0 +1,25 @@
+﻿@page "/"
+@page "/fetchdata"
+
+<PageTitle>Students</PageTitle>
+
+<h1>Students</h1>
+
+@* Demo bits that force errors or empty data *@
+<DemoForm OnRetry="LoadData" @bind-ForceException="forceException" @bind-ShowEmptyState="showEmptyState" />
+
+<hr />
+
+@if (!isLoadingComplete)
+{
+    <CircleFade />
+}
+else if (!hasError)
+{
+    <StudentGrid Students="students" />
+}
+
+
+<Alert Show="hasError">
+    An error occurred while fetching data.
+</Alert>

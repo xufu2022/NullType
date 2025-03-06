@@ -1,0 +1,16 @@
+@if (Show)
+{
+    <p class="alert alert-danger">
+        @ChildContent
+    </p>
+}
+
+@code {
+
+    [Parameter]
+    public bool Show { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+}

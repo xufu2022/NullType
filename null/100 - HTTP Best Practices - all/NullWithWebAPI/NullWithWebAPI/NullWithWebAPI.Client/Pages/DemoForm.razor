@@ -1,0 +1,48 @@
+<div class="form-row align-items-center">
+    <div class="col-auto">
+        <div class="form-check mb-2">
+            <input id="forceException" type="checkbox" checked="@forceException" value="@forceException" @onchange="@HandleForceExceptionChanged" class="form-check-input" />
+            <label class="form-check-label" for="forceException">Force exception</label>
+        </div>
+        <div class="form-check mb-2">
+            <input id="showEmptyState" type="checkbox" checked="@showEmptyState" value="@showEmptyState" @onchange="@HandleShowEmptyStateChanged" class="form-check-input" />
+            <label class="form-check-label" for="showEmptyState">Show empty state</label>
+        </div>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary mb-2" @onclick="HandleOnRetry">Retry</button>
+    </div>
+</div>
+
+@code {
+    bool showEmptyState;
+    bool forceException;
+
+    [Parameter, EditorRequired]
+    public EventCallback OnRetry { get; set; }
+
+    private void HandleOnRetry() => OnRetry.InvokeAsync();
+
+    [Parameter]
+    public bool ShowEmptyState { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ShowEmptyStateChanged { get; set; }
+
+    async Task HandleShowEmptyStateChanged(ChangeEventArgs _)
+    {
+        showEmptyState = !showEmptyState;
+        await ShowEmptyStateChanged.InvokeAsync(showEmptyState);
+    }
+
+    [Parameter]
+    public bool ForceException { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ForceExceptionChanged { get; set; }
+    async Task HandleForceExceptionChanged(ChangeEventArgs _)
+    {
+        forceException = !forceException;
+        await ForceExceptionChanged.InvokeAsync(forceException);
+    }
+}

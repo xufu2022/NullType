@@ -1,0 +1,27 @@
+@using NullWithWebAPI.Shared.DTO;
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Date Enrolled</th>
+            <th>Courses Enrolled</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Students)
+        {
+            <tr>
+                <td>@student.FullName</td>
+                <td>@student.EnrollmentDate.ToShortDateString()</td>
+                <td>@student.Enrollments.Count()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<EmptyGrid Show="Students.Length == 0" />
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public Student[] Students { get; set; } = Array.Empty<Student>();
+}
